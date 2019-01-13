@@ -1,0 +1,162 @@
+
+
+<form id="add-game" name="add-game" action="/project/games" method="post" onsubmit="return validateForm()">
+	<h3>Add New Game to the list : </h3>
+	<table class="form_table">
+		<tr>
+			<td style="width: 140px">
+				Title : 
+			</td> 
+			<td>
+				<input type="text" name="title" id="title" placeholder="Game Title" ><br>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2">
+				Available on : 
+				<table id="gs_list">
+
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				Game includes Features : 
+				<table id="feature_list">
+
+				</table>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<input type="submit" value="Add New Game">
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</form>
+	
+	<br><br>
+<h3>List of Games to choose : </h3>
+<table class="display_table">	
+	<thead> 
+        <th>Title</th> 
+        <th>Available on</th>  
+		<th>Features</th>
+		<th> </th>
+
+
+    </thead> 
+    <tbody> 
+        {{#each games_arr}} 
+        <tr> 
+            <td>{{title}}</td> 
+			<td style="border: 1px solid #aaaaaa">
+				{{#each available}}	
+					{{Ver}} &emsp;
+				{{/each}}
+			</td>
+			<td style="border: 1px solid #aaaaaa">
+				{{#each consists}}	
+					{{Feat}} &emsp;
+				{{/each}}
+			</td>
+			<td>
+				<form id="deleteGame" action="games/delete" method="get"> 
+					<input type="submit" value="Delete">
+					<input type="hidden" name="gid" value="{{gid}}">	
+				</form>
+			</td>
+        </tr> 
+		
+
+        {{/each}} 
+    </tbody> 
+</table> 
+
+
+<script>
+	{{#each game_system_arr}}
+
+		var tr;
+		
+		if ({{@index}} % 4 == 0)
+		{
+			tr = document.createElement("tr");
+			document.getElementById("gs_list").appendChild(tr);			
+		} else {
+			document.getElementById("gs_list").lastElementChild.appendChild(td);			
+		}
+		var td = document.createElement("td");
+		td.innerHTML = '<input type="checkbox" name="available_gsid" value="{{gsid}}"> {{system_name}}';
+		tr.appendChild(td);	
+		
+	{{/each}}
+
+</script>
+
+<script>
+	{{#each feature_arr}}
+
+		var tr;
+		
+		if ({{@index}} % 5 == 0)
+		{
+			tr = document.createElement("tr");
+			document.getElementById("feature_list").appendChild(tr);			
+		} else {
+			document.getElementById("feature_list").lastElementChild.appendChild(td);			
+		}
+		var td = document.createElement("td");
+		td.innerHTML = '<input type="checkbox" name="consists_fid" value="{{fid}}"> {{feature}}';
+		tr.appendChild(td);	
+		
+	{{/each}}
+
+</script>
+<script>
+	//Reference: https://www.w3schools.com/js/tryit.asp?filename=tryjs_validation_js
+	function validateForm()
+	{
+		var x = document.forms["add-game"]["title"].value;
+		if (x == "")
+		{
+			alert("In-Game Name must be filled out");
+			return false;
+		}
+		
+		
+		var boxes = document.forms["add-game"];
+		var count_A = 0;
+		var count_B = 0;
+		console.log ("chk...... : " + boxes);
+		for (i = 0; i < boxes.length; i++) {
+			if (boxes[i].checked == 1 && boxes[i].name=="available_gsid") {
+			count_A++;
+			}
+			if (boxes[i].checked == 1 && boxes[i].name=="consists_fid") {
+			count_B++;
+			}
+		}
+		
+		if (count_A == 0)
+		{			
+			alert("Game must at least be available on one of the game system in database");
+			return false;
+		}
+		
+		if (count_B == 0)
+		{			
+			alert("Game must at least consists of one feature in database");
+			return false;
+		}
+	}
+
+
+
+
+	
+</script>

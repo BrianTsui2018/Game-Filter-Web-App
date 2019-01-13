@@ -1,0 +1,176 @@
+
+
+<form id="add-person" name="add-person" action="/project/person" method="post" onsubmit="return validateForm()">
+	<h3>Add New Person to the group : </h3>
+	<table class="form_table">
+		<tr>
+			<td style="width: 140px">
+				In-Game Name : 
+			</td> 
+			<td>
+				<input type="text" name="in_game_name" id="in_game_name" placeholder="In-Game Name" ><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				First Name : 
+			</td>
+			<td>
+				<input type="text" name="first_name" id="first_name" placeholder="First Name" ><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Last Name : 
+			</td>
+			<td>
+				<input type="text" name="last_name" id="last_name" placeholder="Last Name" ><br>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				The most disliked game feature : 
+				
+				<select name="feature" id="feature" placeholder="Select a feature">		
+					<option value="" disabled selected>Select a feature</option>
+					{{#each feature_arr}}
+					<option value="{{fid}}"> {{feature}}</option>
+					{{/each}}
+				</select><br>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				Owns Game System: 
+
+				<table id="gs_list">
+
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" value="Insert">
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</form>
+	
+	<br><br>
+
+<h3>List of People in group : </h3>
+
+<table class="display_table">
+
+	
+	<thead> 
+        <th>In-Game Name</th> 
+        <th>First Name</th> 
+        <th>Last Name</th>
+        <th>Dislikes Game Feature</th>  
+		<th>Owns Game Systems</th>
+		<th> </th>
+		<th> </th>
+
+    </thead> 
+    <tbody> 
+	
+        {{#each person_arr}} 
+        <tr> 
+            <td>{{in_game_name}}</td> 
+            <td>{{first_name}}</td> 
+            <td>{{last_name}}</td> 
+            <td>{{dislike_feature}}</td>
+			<td style="border: 1px solid #aaaaaa">
+				{{#each owns}}	
+					{{Owns}} &emsp;
+				{{/each}}
+			</td>
+            <td>
+				<form id="deletePerson" action="project/person/delete" method="get"> 
+					<input type="submit" value="Delete">
+					<input type="hidden" name="pid" value="{{pid}}">
+	
+				</form>
+			</td>
+			<td>
+				<form id="updatePerson" action="project/person/edit" method="get"> 
+					<input type="submit" value="Update">
+					<input type="hidden" name="pid" value="{{pid}}">
+					<input type="hidden" name="in_game_name" value="{{in_game_name}}">
+					<input type="hidden" name="first_name" value="{{first_name}}">
+					<input type="hidden" name="last_name" value="{{last_name}}">
+					<input type="hidden" name="dislike_feature" value="{{dislike_feature}}">
+				</form>
+			</td>
+        </tr> 
+		
+
+        {{/each}} 
+		
+		<tr style="background-color: #dddddd;">
+			<td align="right" colspan="7">
+				<form name="Search" id="Search" action="/people" method="get">
+				Search for members that all owns a
+					<select name="search" placeholder="Select a Game System">		
+						<option value="" disabled selected>Select a Game System</option>
+						{{#each game_system_arr}}
+						<option value="{{gsid}}"> {{system_name}}</option>
+						{{/each}}
+					</select>
+				&emsp;
+				<input type="submit" value="Search">
+				</form>
+			</td>
+		</tr>
+    </tbody> 
+</table> 
+
+<script>
+	{{#each game_system_arr}}
+
+		var tr;
+		
+		if ({{@index}} % 4 == 0)
+		{
+			tr = document.createElement("tr");
+			document.getElementById("gs_list").appendChild(tr);			
+		} else {
+			document.getElementById("gs_list").lastElementChild.appendChild(td);			
+		}
+		var td = document.createElement("td");
+		td.innerHTML = '<input type="checkbox" name="owns_gsid" value="{{gsid}}"> {{system_name}}';
+		tr.appendChild(td);	
+		
+	{{/each}}
+
+</script>
+
+<script>
+	//Reference: https://www.w3schools.com/js/tryit.asp?filename=tryjs_validation_js
+	function validateForm()
+	{
+		var x = document.forms["add-person"]["in_game_name"].value;
+		if (x == "")
+		{
+			alert("In-Game Name must be filled out");
+			return false;
+		}
+		
+		var boxes = document.forms["add-person"];
+		var count = 0;
+		for (i = 0; i < boxes.length; i++) {
+		  console.log("chk ... " + i);
+		  if (boxes[i].checked == 1) {
+			count++;
+		  }
+		}
+		if (count == 0)
+		{			
+			alert("Member must at least own one game system");
+			return false;
+		}
+	}	
+</script>

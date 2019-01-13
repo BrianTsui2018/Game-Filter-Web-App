@@ -1,0 +1,56 @@
+<form id="add-gamesys" name="add-gamesys" action="/project/gamesys" method="post" onsubmit="return validateForm()">
+	<h3>Add New Game System: </h3>
+	<table class="form_table">
+		<tr>
+			<td style="width: 180px">
+				Game System's name :
+			</td> 
+			<td>
+				<input type="text" name="system_name" id="system_name" placeholder="Name" ><br>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="right">
+				<input type="submit" value="Add">
+			</td>
+		</tr>
+	</table>
+</form>
+	
+	<br><br>
+<h3>List of Game Systems : </h3>
+<table class="display_table">
+	<thead> 
+        <th>ID</th> 
+        <th>Name</th> 
+		<th> </th>
+    </thead> 
+    <tbody> 
+        {{#each game_system_arr}} 
+        <tr> 
+            <td>{{gsid}}</td> 
+            <td width="200px">{{system_name}}</td> 
+			<td>
+				<form id="deleteGameSystem" action="project/gamesys/delete" method="get"> 
+					<input type="submit" value="Delete">
+					<input type="hidden" name="gsid" value="{{gsid}}">	
+				</form>
+			</td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+
+<script>
+	//Reference: https://www.w3schools.com/js/tryit.asp?filename=tryjs_validation_js
+	function validateForm()
+	{
+		var x = document.forms["add-gamesys"]["system_name"].value;
+		if (x == "")
+		{
+			alert("In-Game Name must be filled out");
+			return false;
+		}
+	}	
+</script>

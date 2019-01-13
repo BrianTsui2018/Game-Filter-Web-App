@@ -1,0 +1,107 @@
+<h1>Edit Person</h1>
+
+	<h3>Update Profile of member: </h3>
+<form id="update-person" name="update-person" action="./update" method="post" onsubmit="return validateForm()">
+	<table class="form_table">
+		<tr>
+			<td style="width: 140px">
+				In-Game Name : 
+			</td> 
+			<td>
+				<input type="text" name="in_game_name" id="in_game_name" value="{{person.in_game_name}}"><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				First Name : 
+			</td>
+			<td>
+				<input type="text" name="first_name" id="first_name"  value="{{person.first_name}}"><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Last Name : 
+			</td>
+			<td>
+				<input type="text" name="last_name" id="last_name"  value="{{person.last_name}}" ><br>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				Most disliked game feature : 				
+				<select name="feature" placeholder="Select a feature">		
+					<option value="" disabled selected>Select a feature</option>
+					{{#each feature_arr}}
+					<option value="{{fid}}" {{{selected}}}> {{feature}}</option>
+					{{/each}}
+				</select><br>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				Owns game system: 
+				<table id="gs_list">
+
+				</table>
+	
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="hidden" name="pid" value="{{person.pid}}">
+				<input type="submit" value="Insert">
+				
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</form>
+
+<script>
+	{{#each game_system_arr}}
+
+		var tr;
+		
+		if ({{@index}} % 4 == 0)
+		{
+			tr = document.createElement("tr");
+			document.getElementById("gs_list").appendChild(tr);			
+		} else {
+			document.getElementById("gs_list").lastElementChild.appendChild(td);			
+		}
+		var td = document.createElement("td");
+		td.innerHTML = '<input type="checkbox" name="owns_gsid" value="{{gsid}}" {{{check}}}> {{system_name}}';
+		tr.appendChild(td);	
+		
+	{{/each}}
+
+</script>
+<script>
+	//Reference: https://www.w3schools.com/js/tryit.asp?filename=tryjs_validation_js
+	function validateForm()
+	{
+		var x = document.forms["update-person"]["name"].value;
+		if (x == "")
+		{
+			alert("Name must be filled out");
+			return false;
+		}
+		
+		var boxes = document.forms["update-person"];
+		var count = 0;
+		for (i = 0; i < boxes.length; i++) {
+		  console.log("chk ... " + i);
+		  if (boxes[i].checked == 1) {
+			count++;
+		  }
+		}
+		if (count == 0)
+		{			
+			alert("Member must at least own one game system");
+			return false;
+		}
+	
+	}	
+</script>

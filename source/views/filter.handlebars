@@ -1,0 +1,28 @@
+<h1>Filter Result</h1>
+This is the ultimate query that connnects all 4 entity tables to answer the question: <br>
+<h4>Which game(s) -can- this group of friends play? </h4>
+<p> The criteria includes: </p>
+<ul>
+	<li> The Game is available on atleast one Game System which every Person owns
+	<li> The Game does not include any Feature that any Person dislikes the most
+</ul>
+<h3>List of Games that everyone can play: </h3>
+
+<table class="display_table">
+	<thead> 
+        <th>ID</th> 
+        <th>Title</th> 
+    </thead> 
+	<tbody> 
+		{{#each filter_arr}}
+			<tr>
+				<td>
+					{{gid}} &emsp;
+				</td>
+				<td>
+					{{title}} &emsp;
+				</td>
+			</tr>
+		{{/each}}
+	</tbody>
+</table>

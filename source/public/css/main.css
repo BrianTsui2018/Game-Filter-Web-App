@@ -1,0 +1,101 @@
+html,body {
+	background-color: #eeeeee;
+	margin: 0px;
+	padding: 10px 20px 10px 20px;
+	width:80%;
+	font-family: arial;
+	
+}
+
+body table {
+	background-color : #dddddd;
+	padding: 10px 10px 10px 10px;
+	margin: 0px 0px 0px 0px;
+	text-align: left;
+}
+
+
+
+body table tr td, th{
+	min-width: 50px;
+	border: 0px solid black;
+	padding: 5px 10px 5px 10px;
+	color: #666666;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit][value="Delete"] {
+    background-color: #AF4C50;
+    color: white;
+    padding: 3px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit][value="Update"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 3px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+input[type=submit][value="Delete"]:hover {
+    background-color: #a04549;
+}
+
+input[type=submit][value="Update"]:hover {
+    background-color: #45a049;
+}
+
+#gs_list tr td {
+	min-width: 180px;
+}
+
+.display_table {
+	border: 1px solid black;
+}
+
+.display_table tr:nth-of-type(2n){
+	background-color: #ededed;
+
+}
+
+.display_table tr td{
+	max-width:700px;
+}
+.form_table {
+	border: 1px dashed black;
+	background-color: inherit;
+}
+
+.checkboxes li {
+	display:inline;
+}
+
+.checkboxes li:nth-of-type(n):before {
+	content: "\0009\0009";
+	white-space:pre; 
+}
+
+.checkboxes li:nth-of-type(5n+0):after{ 
+	content: "\A"; 
+	white-space:pre; 
+}

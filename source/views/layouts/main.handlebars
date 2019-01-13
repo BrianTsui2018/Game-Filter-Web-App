@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+	<title>Demo Page</title>
+ 	<link rel='stylesheet' type='text/css' href='/static/css/main.css' />
+</head>
+<body>
+	<table>
+		<tr>
+			<td width="400px">
+				<h1 style="color: #888888">CS 340 Final Project</h1> 
+			</td>
+			<td>
+				<form action="/people" method="get">
+					<input type="submit" value="People Table">
+				</form>
+			</td>		
+			<td>
+				<form action="/gamesys" method="get">
+					<input type="submit" value="Game Systems Table">
+				</form>
+			</td>
+			<td>
+				<form action="/games" method="get">
+					<input type="submit" value="Games Table">
+				</form>
+			</td>
+			<td>
+				<form action="/features" method="get">
+					<input type="submit" value="Features Table">
+				</form>
+			</td>
+			<td>
+				<form action="/filter" method="get">
+					<input type="submit" value="Filter*">
+				</form>
+			</td>
+		</tr>
+	</table>
+	{{{body}}}
+</body>
+</html>
