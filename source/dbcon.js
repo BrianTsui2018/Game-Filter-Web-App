@@ -4,10 +4,10 @@ var pool = mysql.createPool({
 	connectTimeout  : 60 * 60 * 1000,
 	aquireTimeout   : 60 * 60 * 1000,
 	timeout         : 60 * 60 * 1000,
-	host            : '35.234.62.232',
-	user            : 'generic_user',
-	password        : 'sNyQnQJ8ZW65rK2',
-	database        : 'tsuio_db'
+	host            : 'your_db_host',
+	user            : 'your_db_user_name',
+	password        : 'your_db_password_here',
+	database        : 'your_db_name'
 });
 
 pool.query('SELECT 1 + 1 AS solution', (error, results, fields) => {
